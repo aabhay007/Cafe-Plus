@@ -6,8 +6,8 @@ A modern, responsive web application built for **Cafe Plus** to digitize daily s
 
 ## 🔐 Staff Sign In Credentials
 
-- **Username**: `Shubham`
-- **Password**: `shubham@cafeplus`
+- **Username**: `user`
+- **Password**: `********`
 
 *(Authorized staff access only. No signup enabled.)*
 
