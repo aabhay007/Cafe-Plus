@@ -3,7 +3,10 @@ import cors from 'cors';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import dotenv from 'dotenv';
 import { db, initDB } from './db.js';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,11 +30,6 @@ app.use(async (req, res, next) => {
 // ------------------------------------
 // 0. Authentication Endpoints
 // ------------------------------------
-const AUTH_CREDENTIALS = {
-  username: 'Shubham',
-  password: 'shubham@cafeplus'
-};
-
 app.post('/api/auth/login', (req, res) => {
   try {
     const { username, password } = req.body;
@@ -39,17 +37,21 @@ app.post('/api/auth/login', (req, res) => {
       return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const isUsernameMatch = username.trim().toLowerCase() === AUTH_CREDENTIALS.username.toLowerCase();
-    const isPasswordMatch = password === AUTH_CREDENTIALS.password;
+    // Read credentials from environment variables (with fallback defaults)
+    const expectedUsername = process.env.AUTH_USERNAME || process.env.STAFF_USERNAME || 'Shubham';
+    const expectedPassword = process.env.AUTH_PASSWORD || process.env.STAFF_PASSWORD || 'shubham@cafeplus';
+
+    const isUsernameMatch = username.trim().toLowerCase() === expectedUsername.trim().toLowerCase();
+    const isPasswordMatch = password === expectedPassword;
 
     if (isUsernameMatch && isPasswordMatch) {
-      const token = Buffer.from(`${AUTH_CREDENTIALS.username}:${Date.now()}`).toString('base64');
+      const token = Buffer.from(`${expectedUsername}:${Date.now()}`).toString('base64');
       return res.json({
         success: true,
         token,
         user: {
-          username: AUTH_CREDENTIALS.username,
-          name: 'Shubham',
+          username: expectedUsername,
+          name: expectedUsername,
           role: 'Manager'
         }
       });

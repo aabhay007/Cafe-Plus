@@ -40,7 +40,9 @@ git push -u origin main
 2. Select your `cafe-plus` GitHub repository.
 3. In **Environment Variables**, add:
    - `TURSO_DATABASE_URL`: `libsql://cafe-plus-abhay007.aws-eu-west-1.turso.io`
-   - `TURSO_AUTH_TOKEN`: *(Paste your Turso auth token from Step 1)*
+   - `TURSO_AUTH_TOKEN`: *(Your Turso token)*
+   - `AUTH_USERNAME`: `Shubham` *(or any username you prefer)*
+   - `AUTH_PASSWORD`: `shubham@cafeplus` *(or any password you prefer)*
 4. Click **Deploy**!
 
 Vercel will build the frontend, deploy the `/api` serverless backend, and connect to your Turso database. All tables and initial sample data (`30/04/26`) will automatically seed on first load!
